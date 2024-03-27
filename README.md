@@ -54,7 +54,7 @@ Usage: ./rstudio_bsub.sh [options...]
                           - e.g. "/software/teamxxx/gn5/R/x86_64-conda_cos6-linux-gnu/4.0.3"
                           - check or edit manually with command .libPaths() from Rstudio session
   -a, --dir_singularity   (optional) Directory where singularity image is stored/cached
-                          - defaults to "/software/hgi/containers"
+                          - defaults to "/software/team273/rstudio_sanger_lsf_farm_images"
   -i, --image_singularity filename of the singularity image (image must be in --dir_singularity)
                           - defaults to "jammy-R_4.3-rstudio_2023.12.1+402.sif"
   -h, --help              Display this help message
