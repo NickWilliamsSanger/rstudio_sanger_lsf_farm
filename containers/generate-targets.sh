@@ -23,6 +23,6 @@ declare VERSIONS="versions.yml"
 
 for R_ID in $(yq eval ".R[].name" "${VERSIONS}"); do
   for RSTUDIO_ID in $(yq eval ".RStudio[].name" "${VERSIONS}"); do
-    echo "bionic-R_${R_ID}-rstudio_${RSTUDIO_ID}"
+    echo "jammy-R_${R_ID}-rstudio_${RSTUDIO_ID}"
   done
 done

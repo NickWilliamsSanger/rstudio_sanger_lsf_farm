@@ -1,8 +1,12 @@
-## Deprecated
+## Deprecated by HGI
 
 This repo is now deprecated in favour of the [RStudio Module](https://hgi-projects.pages.internal.sanger.ac.uk/documentation/docs/how-to-guides/rstudio/).
 
+Note this is a forked version to provide functionality for farm22 and jammy. Currently it is configured for only R 4.3.1.  
+
 ### Rstudio server on Sanger LSF farm
+
+
   
 This repository provides a bash script to start (bsub) an Rstudio server on the Sanger LSF farm, with access to `/lustre`, `/nfs` and `/software`, with optional arguments such as R version or R personal library paths.
 
@@ -42,9 +46,7 @@ Usage: ./rstudio_bsub.sh [options...]
                           - if Rstudio fails to recover a session in that directory, either:
                               1) remove its session files (i.e any .rstudio, .config, .local, .RData, and .Rhistory)
                               or 2) choose a different --dir_session directory free of any session files.
-  -r, --r_version         (optional) R version: must be either"4.1.0" or "4.0.3" or "3.6.1"
-                          - defaults to "4.1.0"
-                          - contact HGI to add support for other R versions
+  -r, --r_version         (optional) R version: currently only "4.3.1" is supported.
   -l, --r_lib_path        (optional) path to R library path. Must be compatible with --r_version
                           - the default session .libPaths() will include: 
                               - any path set in env variable $R_LIBS_USER (if set)
@@ -54,7 +56,6 @@ Usage: ./rstudio_bsub.sh [options...]
   -a, --dir_singularity   (optional) Directory where singularity image is stored/cached
                           - defaults to "/software/hgi/containers"
   -i, --image_singularity filename of the singularity image (image must be in --dir_singularity)
-                          - defaults to "bionic-R_${R_VERSION}-rstudio_1.4.sif"
-                          - e.g. "bionic-R_4.1.0-rstudio_1.4.sif" or  "bionic-R_3.6.1-rstudio_1.4.sif"
+                          - defaults to "jammy-R_4.3-rstudio_2023.12.1+402.sif"
   -h, --help              Display this help message
 ```

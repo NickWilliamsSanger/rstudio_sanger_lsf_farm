@@ -39,7 +39,7 @@ declare RSTUDIO_SOURCE="$(get_metadata RStudio "${RSTUDIO_ID}" source)"
 
 cat <<RECIPE
 Bootstrap: debootstrap
-OSVersion: bionic
+OSVersion: jammy
 MirrorURL: http://archive.ubuntu.com/ubuntu
 Include: ca-certificates curl gnupg locales language-pack-en
 
@@ -55,7 +55,7 @@ Include: ca-certificates curl gnupg locales language-pack-en
   export DEBIAN_FRONTEND=noninteractive
 
   cat >/etc/apt/sources.list <<-EOF
-	deb http://archive.ubuntu.com/ubuntu bionic main universe
+	deb http://archive.ubuntu.com/ubuntu jammy main universe
 	deb ${R_SOURCE}
 	EOF
 

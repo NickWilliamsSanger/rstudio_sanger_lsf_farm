@@ -24,10 +24,11 @@ start_rserver() {
 # /software/R-4.1.0/bin/R
 #   with lib path "/software/R-4.1.0/lib/R/library"
 #####################
+## Above was applicable to farm5 
 #####################
 
 # add latest singularity exec to PATH:
-export PATH=/software/singularity-v3.6.4/bin:$PATH
+export PATH=/software/singularity/3.11.4/bin/:$PATH
     
 # set .libPaths() for container R session:
 if [ -z "$R_LIBS_USER" ]
@@ -260,12 +261,12 @@ case "$1" in
     ;;
   *)
     # set default values if arguments not provided:
-    export R_VERSION="${R_VERSION:-4.1.0}"  # as of June 24th 2021, 4.1.0, 4.0.3 and 3.6.1 were manually pulled from dockerhub to /software/hgi/containers/
+    export R_VERSION="${R_VERSION:-4.3.1}"  # as of June 24th 2021, 4.1.0, 4.0.3 and 3.6.1 were manually pulled from dockerhub to /software/hgi/containers/
     export CUSTOM_R_LIBPATH="${CUSTOM_R_LIBPATH:-}" # leave empty by default 
     export N_CPUS="${N_CPUS:-1}" # must match number of CPUs requested by bsub
     export SESSION_DIRECTORY="${SESSION_DIRECTORY:-$PWD}"
-    export SINGULARITY_CACHE_DIR="${SINGULARITY_CACHE_DIR:-/software/hgi/containers}" #  /software/hgi/containers
-    export IMAGE_SINGULARITY="${IMAGE_SINGULARITY:-bionic-R_$R_VERSION-rstudio_1.4.sif}" 
+    export SINGULARITY_CACHE_DIR="${SINGULARITY_CACHE_DIR:-/software/team273/rstudio_sanger_lsf_farm_images}" #  /software/hgi/containers
+    export IMAGE_SINGULARITY="${IMAGE_SINGULARITY:-jammy-R_$R_VERSION-rstudio_2023.12.1+402.sif}" 
     export RSTUDIO_CONTAINER=$SINGULARITY_CACHE_DIR/$IMAGE_SINGULARITY # rocker_tidyverse_$R_VERSION.simg
     # will default to $PWD if empty
     # will be used as both PWD and HOME at container exec 
@@ -282,8 +283,8 @@ case "$1" in
     #####################
     # pre-run checks:
     # check supported R studio versions
-    if [[ ! "$R_VERSION" =~ ^(3.6.1|4.0.3|4.1.0|4.1.3|4.2.2)$ ]]; then
-      echo "Error: R version --r_version (or -r) must be set to either \"4.1.0\" or \"4.0.3\" or \"3.6.1\""
+    if [[ ! "$R_VERSION" =~ ^(4.3.1)$ ]]; then
+      echo "Error: R version --r_version (or -r) must be set to 4.3.1"
       echo "       contact HGI to add support for other R versions"
       exit 1
     fi

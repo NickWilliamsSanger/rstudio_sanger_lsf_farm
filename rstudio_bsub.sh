@@ -31,9 +31,8 @@ display_help() {
     echo "                          - if Rstudio fails to recover a session in that directory, either:" 
     echo "                              1) remove its session files (i.e any .rstudio, .config, .local, .RData, and .Rhistory)"
     echo "                              or 2) choose a different --dir_session directory free of any session files."
-    echo "  -r, --r_version         (optional) R version: must be either\"4.1.0\" or \"4.0.3\" or \"3.6.1\""
-    echo "                          - defaults to \"4.1.0\""
-    echo "                          - contact HGI to add support for other R versions"
+    echo "  -r, --r_version         (optional) R version: currently only 4.3.1 is supported "
+	echo "							- defaults to 4.3.1"
     echo "  -l, --r_lib_path        (optional) path to R library path. Must be compatible with --r_version" 
     echo "                          - the default session .libPaths() will include: "
     echo "                              - any path set in env variable \$R_LIBS_USER (if set)"
@@ -41,10 +40,10 @@ display_help() {
     echo "                          - e.g. \"/software/teamxxx/gn5/R/x86_64-conda_cos6-linux-gnu/4.0.3\""
     echo "                          - check or edit manually with command .libPaths() from Rstudio session"
     echo "  -a, --dir_singularity   (optional) Directory where singularity image is stored/cached"
-    echo "                          - defaults to \"/software/hgi/containers\""
+    echo "                          - defaults to \"/software/team273/rstudio_sanger_lsf_farm_images\""
     echo "  -i, --image_singularity filename of the singularity image (image must be in --dir_singularity)"
-    echo "                          - defaults to \"bionic-R_\${R_VERSION}-rstudio_1.4.sif\""
-    echo "                          - e.g. \"bionic-R_4.1.0-rstudio_1.4.sif\" or  \"bionic-R_3.6.1-rstudio_1.4.sif\""
+    echo "                          - defaults to \"jammy-R_\${R_VERSION}-rstudio_2023.12.1+402.sif\""
+    echo "                          - e.g. \"jammy-R_4.3.1-rstudio_2023.12.1+402.sif\" "
     echo "  -h, --help              Display this help message "
     echo
     exit 1
@@ -129,7 +128,7 @@ case "$1" in
 
     # find LSF group for bsub -G argument
     # first, check available lsf groups from lsf config file:
-    LSF_CONF=/usr/local/lsf/conf/lsbatch/farm5/configdir/lsb.users
+    LSF_CONF=/usr/local/lsf/conf/lsbatch/farm22/configdir/lsb.users
     UNIX_USER=$(id -un)
 
     USER_GROUPS=$(cat $LSF_CONF | grep $UNIX_USER | grep default | grep -v '^#') || \
@@ -165,10 +164,10 @@ case "$1" in
     printf "\n****** \n"
     
     # set default values for start_rstudio_server.sh script:
-    export R_VERSION="${R_VERSION:-4.1.0}"  # as of June 24th 2021, 4.1.0, 4.0.3 and 3.6.1 were pulled from dockerhub to /software/hgi/containers/
+    export R_VERSION="${R_VERSION:-4.3.1}"  # 
     export SESSION_DIRECTORY="${SESSION_DIRECTORY:-$PWD}"
-    export SINGULARITY_CACHE_DIR="${SINGULARITY_CACHE_DIR:-/software/hgi/containers}" #  /software/hgi/containers
-    export IMAGE_SINGULARITY="${IMAGE_SINGULARITY:-bionic-R_$R_VERSION-rstudio_1.4.sif}" 
+    export SINGULARITY_CACHE_DIR="${SINGULARITY_CACHE_DIR:-/software/team273/rstudio_sanger_lsf_farm_images/}" #  /software/hgi/containers
+    export IMAGE_SINGULARITY="${IMAGE_SINGULARITY:-jammy-R_${R_VERSION}-rstudio_2023.12.1+402.sif}" 
     
     export CUSTOM_R_LIBPATH="${CUSTOM_R_LIBPATH:-}" # leave empty by default 
     if [ ! -z "${CUSTOM_R_LIBPATH}" ]
