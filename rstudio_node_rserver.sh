@@ -161,7 +161,7 @@ singularity exec \
 	        --auth-pam-helper-path=/usr/local/bin/pam-helper \
 	        --auth-stay-signed-in-days=30 \
 	        --server-working-dir=$SESSION_DIRECTORY \
-	        --rsession-ld-library-path=/usr/lib/host \
+	        --rsession-ld-library-path=/usr/lib/host:$LD_LIBRARY_PATH \
 	        --rsession-path=/etc/rstudio/rsession.sh \
 	        --server-user $SINGULARITYENV_USER \
 	        $EXTRA_RSERVER_ARGUMENTS
