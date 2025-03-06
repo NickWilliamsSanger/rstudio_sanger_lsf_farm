@@ -283,7 +283,7 @@ case "$1" in
     #####################
     # pre-run checks:
     # check supported R studio versions
-    if [[ ! "$R_VERSION" =~ ^(4.3.1)$ ]]; then
+    if [[ ! "$R_VERSION" =~ ^(4.3.1|4.4.0)$ ]]; then
       echo "Error: R version --r_version (or -r) must be set to 4.3.1"
       echo "       contact HGI to add support for other R versions"
       exit 1
